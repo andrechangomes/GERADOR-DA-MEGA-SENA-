@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Números da Mega-Sena por Data</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Números da Mega-Sena por Data</h1>
+    <p>Digite uma data no formato DD/MM/AAAA:</p>
+    <input type="text" id="data" placeholder="Exemplo: 31/12/2024">
+    <button onclick="gerarNumeros()">Gerar Números</button>
+    <div class="result" id="resultado"></div>
+
+    <script>
+        function gerarNumeros() {
+            const dataInput = document.getElementById('data').value;
+            const partes = dataInput.split('/');
+
+            if (partes.length !== 3) {
+                document.getElementById('resultado').innerText = 'Por favor, insira uma data válida no formato DD/MM/AAAA.';
+                return;
+            }
+
+            const dia = parseInt(partes[0], 10);
+            const mes = parseInt(partes[1], 10);
+            const ano = parseInt(partes[2], 10);
+
+            if (isNaN(dia) || isNaN(mes) || isNaN(ano)) {
+                document.getElementById('resultado').innerText = 'Por favor, insira uma data válida no formato DD/MM/AAAA.';
+                return;
+            }
+
+            const seed = new Date(ano, mes - 1, dia).getTime();
+            const fibonacci = [0, 1];
+
+            while (fibonacci.length < 60) {
+                fibonacci.push(fibonacci[fibonacci.length - 1] + fibonacci[fibonacci.length - 2]);
+            }
+
+            const numeros = new Set();
+
+            while (numeros.size < 6) {
+                const randomIndex = Math.floor((seed * Math.random()) % fibonacci.length);
+                const randomFibonacci = fibonacci[randomIndex];
+                const numero = (randomFibonacci % 60) + 1;
+                numeros.add(numero);
+            }
+
+            const dezenas = Array.from(numeros).sort((a, b) => a - b);
+            document.getElementById('resultado').innerText = `Números gerados: ${dezenas.join(', ')}`;
+        }
+    </script>
+</body>
+</html>
