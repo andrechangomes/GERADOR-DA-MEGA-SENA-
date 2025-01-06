@@ -66,6 +66,8 @@
             }
         }
     </style>
+
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="form-section">
@@ -195,12 +197,12 @@
             "name": "Gerador de Números da Mega-Sena",
             "icons": [
                 {
-                    "src": "icon-192x192.png",
+                    "src": "https://drive.google.com/file/d/15XkRVqD-aS3RFqCMv_IFUDU0qeBAyk67/view?usp=drivesdk",
                     "type": "image/png",
                     "sizes": "192x192"
                 },
                 {
-                    "src": "icon-512x512.png",
+                    "src": "https://drive.google.com/file/d/15XO-gkVUGbcGWdxndA6qqt81dwkiqOTj/view?usp=drivesdk",
                     "type": "image/png",
                     "sizes": "512x512"
                 }
@@ -226,8 +228,7 @@
               return cache.addAll([
                 './',
                 './index.html',
-                './https://drive.google.com/file/d/15XkRVqD-aS3RFqCMv_IFUDU0qeBAyk67/view?usp=drivesdk',
-                './https://drive.google.com/file/d/15XO-gkVUGbcGWdxndA6qqt81dwkiqOTj/view?usp=drivesdk',
+                './manifest.json'
               ]);
             })
           );
