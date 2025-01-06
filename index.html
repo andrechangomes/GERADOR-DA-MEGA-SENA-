@@ -66,21 +66,6 @@
             }
         }
     </style>
-
-    <link rel="manifest" href="manifest.json">
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js').then(() => {
-                    console.log('Service Worker registered.');
-                });
-            });
-        }
-    </script>
-
-    <!-- Google AdSense -->
-    <script data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
     <div class="form-section">
@@ -203,9 +188,8 @@
                 });
             });
         }
-    </script>
 
-    <script>
+        // Manifesto em linha
         const manifest = {
             "short_name": "MegaSena",
             "name": "Gerador de Números da Mega-Sena",
@@ -227,35 +211,42 @@
             "scope": "./",
             "theme_color": "#4CAF50"
         };
+
         const link = document.createElement('link');
         link.rel = 'manifest';
         link.href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: 'application/json' }));
         document.head.appendChild(link);
 
+        // Service Worker em linha
         const serviceWorkerScript = `
-self.addEventListener('install', (event) => {
-  console.log('Service Worker installed.');
-  event.waitUntil(
-    caches.open('static-cache').then((cache) => {
-      return cache.addAll([
-        './',
-        './index.html',
-        './manifest.json',
-        './https://drive.google.com/file/d/15XkRVqD-aS3RFqCMv_IFUDU0qeBAyk67/view?usp=drivesdk',
-        './https://drive.google.com/file/d/15XO-gkVUGbcGWdxndA6qqt81dwkiqOTj/view?usp=drivesdk',
-      ]);
-    })
-  );
-});
+        self.addEventListener('install', (event) => {
+          console.log('Service Worker installed.');
+          event.waitUntil(
+            caches.open('static-cache').then((cache) => {
+              return cache.addAll([
+                './',
+                './index.html',
+                './https://drive.google.com/file/d/15XkRVqD-aS3RFqCMv_IFUDU0qeBAyk67/view?usp=drivesdk',
+                './https://drive.google.com/file/d/15XO-gkVUGbcGWdxndA6qqt81dwkiqOTj/view?usp=drivesdk',
+              ]);
+            })
+          );
+        });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
+        self.addEventListener('fetch', (event) => {
+          event.respondWith(
+            caches.match(event.request).then((response) => {
+              return response || fetch(event.request);
+            })
+          );
+        });
         `;
-        const blob = new Blob([serviceWorkerScript], { type: "text/javascript" });
+
+        const blob = new Blob([serviceWorkerScript], { type: 'text/javascript' });
         const url = URL.createObjectURL(blob);
-        navigator.serviceWorker.register(url).then(()[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/ricardo-cas/pandas/tree/eefd8f3ed9250c15e029b7ae59a24ef9f7ffc4ab/GUIA_MARKDOWN.MD?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/margni/note/tree/f4653693e622602baff2c0c0ee24edd1693b6018/src%2Fcomponent%2FInstallNotifier.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "2")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/github-priyanshu/money-ai-player/tree/a9b3178abb7e2d34a378517a0b900d94f5b5f8a2/pwa.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "3")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/Shubham-Vasnik/FreeChat/tree/eb7765164a6fe943f2513cf4a720dcd7e136e05c/public%2Fjs%2Fsetup.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "4")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/dayatfadila7/final-project-pwa/tree/54e99ed1dbaabe0648222dc363f67920a235bf86/Read%20Me.md?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "5")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/waterwheel31/frontend/tree/bdffa71788ff7ace644d3dfeb271edb1e39e9375/Assignment5%2Fsw.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "6")
+        navigator.serviceWorker.register(url).then(() => {
+            console.log('Service Worker registered.');
+        });
+    </script>
+</body>
+</html>
